@@ -3,12 +3,17 @@ export class LoginPage {
     username: () => cy.get('input[name="username"]'),
     password: () => cy.get('input[name="password"]'),
     loginBtn: () => cy.get('button[type="submit"]'),
+    interceptLogin: () => cy.wait('@loginRequest').its('response.statusCode'),
     errorToast: () => cy.contains(/Invalid credentials/i),
     errorField: () => cy.contains(/Required/i)
   };
 
   visit() {
     cy.visit('/web/index.php/auth/login');
+  }
+
+  interceptLoginRequest() {
+    cy.intercept('GET', '**/core/i18n/messages').as('loginRequest');
   }
 
   fillUsername(value) {

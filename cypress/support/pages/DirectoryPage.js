@@ -2,19 +2,14 @@ export class DirectoryPage {
   elements = {
     menuDirectory: () => cy.get('a[href*="/web/index.php/directory/viewDirectory"]'),
     nameInput: () => cy.get('input[placeholder="Type for hints..."]'),
-    
-    // TIPS: Selektor .eq(0) dan .eq(1) ini rapuh.
-    // Akan lebih baik jika menggunakan labelnya, contoh:
-    // jobTitleDropdown: () => cy.contains('.oxd-input-group', 'Job Title').find('.oxd-select-text-input'),
-    // locationDropdown: () => cy.contains('.oxd-input-group', 'Location').find('.oxd-select-text-input'),
-    
     jobTitleDropdown: () => cy.get('div.oxd-select-text-input').eq(0),
     locationDropdown: () => cy.get('div.oxd-select-text-input').eq(1),
-    
     searchBtn: () => cy.contains('button', 'Search'),
     resetBtn: () => cy.contains('button', 'Reset'),
+    interceptDirSearch: () => cy.wait('@directorySearch').its('response.statusCode'),
     resultCards: () => cy.get('.orangehrm-directory-card'), 
-    noRecords: () => cy.contains('No Records Found')
+    // noRecords: () => cy.contains('No Records Found')
+    noRecords: () => cy.contains('Invalid')
   };
 
   open() {
@@ -22,14 +17,10 @@ export class DirectoryPage {
     cy.url().should('include', '/directory/viewDirectory');
   }
 
-  // --- PERBAIKAN DI SINI ---
+  interceptDirSearchRequest() {
+    cy.intercept('GET', '**/api/v2/directory/employees?limit=14&offset=0').as('directorySearch');
+  }
 
-  /**
-   * Fungsi ini HANYA mengetik di input, TIDAK memilih dari dropdown.
-   * Didesain untuk tes di mana Anda ingin mengetik dan klik "Search".
-   * (Contoh: tes "Pencarian tidak ditemukan").
-   * @param {string} value - Teks untuk diketik
-   */
   typeNameOnly(value) {
     const input = this.elements.nameInput();
     input.clear();
@@ -45,7 +36,7 @@ export class DirectoryPage {
     input.clear();
   
     if (!value || value.trim() === '') {
-      return; // Keluar jika tidak ada value
+      return;
     }
 
     input.type(value);

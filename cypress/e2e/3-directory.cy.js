@@ -16,32 +16,38 @@ describe('OrangeHRM - Directory Suite', () => {
 
   beforeEach(() => {
     lp.visit();
+    dp.interceptDirSearchRequest();
     lp.login(creds.valid.username, creds.valid.password);
     db.assertLoggedIn();
     dp.open();
+
   });
 
   it('TC-DIR-001 (P) Cari by partial name', () => {
     dp.typeAndSelectName(dir.search_name_partial.name);
     dp.search();
+    dp.elements.interceptDirSearch().should('eq', 200);
     dp.elements.resultCards().should('exist');
   });
 
   it('TC-DIR-002 (P) Filter by Job Title', () => {
     dp.selectJobTitle(dir.search_job_title_valid.jobTitle);
     dp.search();
+    dp.elements.interceptDirSearch().should('eq', 200);
     dp.elements.resultCards().should('exist');
   });
 
   it('TC-DIR-003 (P) Filter by Location', () => {
     dp.selectLocation(dir.search_location_valid.location);
     dp.search();
+    dp.elements.interceptDirSearch().should('eq', 200);
     dp.elements.resultCards().should('exist');
   });
 
   it('TC-DIR-004 (N) Pencarian tidak ditemukan', () => {
     dp.typeNameOnly(dir.search_not_found.name);
     dp.search();
+    dp.elements.interceptDirSearch().should('eq', 200);
     dp.elements.noRecords().should('be.visible');
   });
 
@@ -50,6 +56,7 @@ describe('OrangeHRM - Directory Suite', () => {
     dp.selectJobTitle(dir.blank_all.jobTitle);
     dp.selectLocation(dir.blank_all.location);
     dp.search();
+    dp.elements.interceptDirSearch().should('eq', 200);
     dp.elements.resultCards().should('exist');
   });
 
@@ -57,6 +64,7 @@ describe('OrangeHRM - Directory Suite', () => {
     dp.typeAndSelectName(dir.search_name_partial.name);
     dp.search();
     dp.reset();
+    dp.elements.interceptDirSearch().should('eq', 200);
     dp.elements.nameInput().should('have.value', '');
     dp.elements.jobTitleDropdown().should('not.contain.text');
     dp.elements.locationDropdown().should('not.contain.text');
