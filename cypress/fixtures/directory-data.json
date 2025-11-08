@@ -1,0 +1,28 @@
+{
+  "search_name_valid": {
+    "name": "Peter Mac Anderson",
+    "label": "(P)"
+  },
+  "search_job_title_valid": {
+    "jobTitle": "QA",
+    "label": "(P)"
+  },
+  "search_location_valid": {
+    "location": "Texas",
+    "label": "(P)"
+  },
+  "search_name_partial": {
+    "name": "Pet",
+    "label": "(P)"
+  },
+  "search_not_found": {
+    "name": "ZZZUnknown",
+    "label": "(N)"
+  },
+  "blank_all": {
+    "name": "",
+    "jobTitle": "",
+    "location": "",
+    "label": "(N)"
+  }
+}

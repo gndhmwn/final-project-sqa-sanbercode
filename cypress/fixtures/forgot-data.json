@@ -1,0 +1,34 @@
+{
+  "valid_email": {
+    "username_or_email": "Admin",
+    "label": "(P)"
+  },
+  "unknown_user": {
+    "username_or_email": "ghost-user",
+    "label": "(N)"
+  },
+  "blank_field": {
+    "username_or_email": "",
+    "label": "(N)"
+  },
+  "long_string": {
+    "username_or_email": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "label": "(N)"
+  },
+  "xss_attempt": {
+    "username_or_email": "<img src=x onerror=alert(1)>",
+    "label": "(N)"
+  },
+  "sql_injection": {
+    "username_or_email": "Admin' OR '1'='1",
+    "label": "(N)"
+  },
+  "trim_spaces": {
+    "username_or_email": "   Admin   ",
+    "label": "(P)"
+  },
+  "mixed_case": {
+    "username_or_email": "aDmIn",
+    "label": "(P)"
+  }
+}
